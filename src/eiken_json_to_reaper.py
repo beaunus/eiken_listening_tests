@@ -46,8 +46,8 @@ def get_eiken_reaper_object(eiken_object):
             name=section['name'])
         for question in section['questions']:
             this_question = make_track(
-            name='Question ' + question['question_number'],
-            pre_track_pause_length=PAUSES['beginning_of_track'])
+                name='Question ' + question['question_number'],
+                pre_track_pause_length=PAUSES['beginning_of_track'])
             for i in range(2):
                 for line in question['lines']:
                     line_type = line['type']
