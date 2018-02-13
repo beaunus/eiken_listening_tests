@@ -1,3 +1,169 @@
+# Overview
+
+*eiken_listening_tests* is a tool for turning simple text files into 
+valid JSON that can be used by 
+*[beaunus_clip_splicer](https://github.com/beaunus/ReaScripts/tree/master/Various/beaunus_clip_splicer)*.
+
+An **eiken_listening_test script** looks something like this:
+
+```
+Eiken Grade 5 Listening
+[Section] 1
+#1
+  A: I went to Kyoto last month.
+  B: Really? I Like Kyoto very much.
+  A: Why?
+  [Choices]
+    1. B: It is in Kansai.
+    2. B: It was beautiful.
+    3. B: I am from Okinawa.
+```
+
+A **beaunus_clip_splicer JSON file** looks something like this:
+
+```
+{
+  "path": "clips",
+  "name": "Eiken Grade 5 Listening",
+  "type": "REGION",
+  "components": [
+    {
+      "name": "1",
+      "type": "REGION",
+      "components": [
+        {
+          "name": "Track 01 - Question 1",
+          "type": "REGION",
+          "components": [
+            {
+              "length": 0.2,
+              "track": "PAUSES",
+              "name": "PAUSE at beginning of track",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "F/I went to Kyoto last month.",
+              "track": "F",
+              "name": "F/I went to Kyoto last month.",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_prompt",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "M/Really? I Like Kyoto very much.",
+              "track": "M",
+              "name": "M/Really? I Like Kyoto very much.",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_prompt",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "F/Why?",
+              "track": "F",
+              "name": "F/Why?",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_prompt",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "I/1",
+              "track": "I",
+              "name": "I/1",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_number",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "M/It is in Kansai.",
+              "track": "M",
+              "name": "M/It is in Kansai.",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_choice",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "I/2",
+              "track": "I",
+              "name": "I/2",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_number",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "M/It was beautiful.",
+              "track": "M",
+              "name": "M/It was beautiful.",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_choice",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "I/3",
+              "track": "I",
+              "name": "I/3",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_number",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "filename": "M/I am from Okinawa.",
+              "track": "M",
+              "name": "M/I am from Okinawa.",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_choice",
+              "type": "MEDIA ITEM"
+            },
+            {
+              "length": 0.2,
+              "track": "Pauses",
+              "name": "Pause after_question",
+              "type": "MEDIA ITEM"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+```
+
 # Patterns
 
 ## Voice abbreviations
@@ -93,64 +259,4 @@ B: Voice B
 
 # File Format
 
-## Example
-```
-Eiken Grade 5 Listening - 第１回 // The first line in the project title.
-[Section] 大問１ // [Section] lines will begin a new region.
-#1 [M,F] // Note the # symbol. The M and F refer to the genders.
-  A: I went to Kyoto last month. // Parenthetical notes are optional.
-  B: Really? I Like Kyoto very much.
-  A: Why?
-  [Choices] // This symbol indicates that the Instruction voice should read "One", "Two", etc. before the character voice reads the choice.
-    1. B: It is in Kansai. // Note the character name.
-    2. B: It was beautiful.
-    3. B: I am from Okinawa.
-#2
-  A: I want to go shopping. // Characters without parenthetical parameters have the gender chosen at random.
-  B: What are you going to buy? // The opposing character will have the opposite gender, by default.
-  A: Just some bread. Would you like to come with me?
-  [Choices]
-    1. B: He went this morning.
-    2. B: Sure. Let me get my jacket.
-    3. B: I have no bread.
-[Section]: 大問2
-#3 [F,M]
-  A: How was Hokkaido?
-  B: It was great.
-  A: Didn't you go there last winter, too?
-  B: No. We went to Hiroshima and Osaka.
-  [Question] Where did he go this year? // This tag indicates that the Instruction voice should read "Question", followed by the question itself.
-  [Choices]
-    1. Osaka.
-    2. Hiroshima.
-    3. Hokkaido.
-    4. He didn't go anywhere.
-#4 [F,M]
-  A: I smell something sweet?
-  B: Yes. I have some cupcakes. Would you like one?
-  A: Just a small one. I ate too much cereal for breakfast.
-  B: Okay.
-  [Question] What did she have for breakfast?
-  [Choices]
-    1. Sweet potato.
-    2. Cupcakes.
-    3. Peas.
-    4. Cereal.
-[Section]: 大問3
-#5 [M]
-  A: It is very cold this winter. I can’t wait for spring to start. But my favorite season is summer. Every summer I go to swim in the sea.
-  [Question] What is his favorite season?
-  [Choices - Not spoken] // This tag indicates that the choices are not spoken. This is so answer choices can be included in the script, even if they are not spoken.
-    1. Spring
-    2. Summer
-    3. Fall
-    4. Winter
-#6
-  A: Jake’s father is a music teacher. Jake started playing the guitar at five years old. His sister Meg plays the piano. They love music.
-  [Question] Who plays the piano?
-  [Choices - Not spoken]
-    1. Jake.
-    2. Jake’s father.
-    3. Jake’s mother.
-    4. Jake’s sister.
-```
+See [example.txt](example.txt) for an example.
