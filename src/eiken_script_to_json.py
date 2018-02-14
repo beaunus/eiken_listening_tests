@@ -158,8 +158,10 @@ def parse_question(question):
     # Initialize a list of spoken lines for this question.
     lines = []
     for line in question['lines']:
+        vocalist = None
         if line.startswith('[Question]'):
             # This line contains the text for a spoken question.
+            line_type = 'question'
             line = line.partition('[Question]')[2].strip()
             lines.append({'type': 'question', 'text': line.strip()})
         elif line.startswith('[Choices - Not spoken]'):
@@ -172,6 +174,7 @@ def parse_question(question):
             choice_number = None
             if re.search(r'\d', line):
                 # This line begins with a digit --> It is a choice.
+                line_type = 'choice'
                 partition = line.partition('.')
                 choice_number = partition[0]
                 line = partition[2]
@@ -185,6 +188,8 @@ def parse_question(question):
                 line = partition[2]
             line_object = {'type': line_type, 'text': line.strip()}
             # If the vocalist is specified, look up its gender.
+            print('line => ' + line)
+            print('question => ' + json.dumps(question))
             if vocalist:
                 line_object['vocalist'] = question['vocalists'][vocalist]
             # If there is a choice number, add its data to the result.
