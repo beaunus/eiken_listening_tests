@@ -181,7 +181,7 @@ def parse_question(question):
             else:
                 # This line does not begin with a digit --> It is not a choice.
                 line_type = 'prompt'
-            if re.search(r'.*:', line):
+            if re.search(r'.*[A-Z]:', line):
                 # This line has a colon --> There is a specified vocalist.
                 partition = line.partition(':')
                 vocalist = partition[0].strip()
