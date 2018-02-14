@@ -188,8 +188,6 @@ def parse_question(question):
                 line = partition[2]
             line_object = {'type': line_type, 'text': line.strip()}
             # If the vocalist is specified, look up its gender.
-            print('line => ' + line)
-            print('question => ' + json.dumps(question))
             if vocalist:
                 line_object['vocalist'] = question['vocalists'][vocalist]
             # If there is a choice number, add its data to the result.
