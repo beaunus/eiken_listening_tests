@@ -39,8 +39,12 @@ def parse_args():
 
 
 def get_eiken_reaper_object(eiken_object):
+    '''Given a dict that represents an eiken test, returns a dict that
+    represents a beaunus_clip_splicer object.
+    '''
     result = make_region(
         name=eiken_object['title'], path=eiken_object['path'])
+    # pylint: disable = too-many-nested-blocks
     for section in eiken_object['sections']:
         this_section = make_region(
             name=section['name'])
@@ -48,7 +52,7 @@ def get_eiken_reaper_object(eiken_object):
             this_question = make_track(
                 name='Question ' + question['question_number'],
                 pre_track_pause_length=PAUSES['beginning_of_track'])
-            for i in range(2):
+            for _ in range(2):
                 for line in question['lines']:
                     line_type = line['type']
                     if line_type == 'silent':
