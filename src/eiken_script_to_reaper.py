@@ -112,10 +112,6 @@ def get_eiken_reaper_object(eiken_object):
             this_section['components'].append(this_question)
         result['components'].append(this_section)
     return result
-    # Create a region for the whole project
-    # Create a region for each section
-    # Create a track for each question.
-    # Create the components for each question.
 
 
 def main():
