@@ -172,7 +172,7 @@ def parse_question(question):
             line_type = 'choice'
         else:
             choice_number = None
-            if re.search(r'\d', line):
+            if re.search(r'^\d', line):
                 # This line begins with a digit --> It is a choice.
                 line_type = 'choice'
                 partition = line.partition('.')
