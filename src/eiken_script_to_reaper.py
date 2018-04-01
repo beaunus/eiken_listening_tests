@@ -134,6 +134,7 @@ def get_section(section):
     this_section = make_region(
         name=section['name'])
     this_section_ids = section['name'].split('.')
+    # Add the practice test instructions if this is section 1 of a test.
     if this_section_ids[1] == '1':
         practice_test_instructions_track = make_track(
             name='Practice Test ' + this_section_ids[0] + ' Instructions',
