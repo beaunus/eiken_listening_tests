@@ -150,6 +150,22 @@ def get_section(section):
         practice_test_instructions_track['components'].append(practice_test_instructions_item)
         practice_test_instructions_track['components'].append(pause_after)
         this_section['components'].append(practice_test_instructions_track)
+    # Add the section instructions
+    section_instructions_track = make_track(
+        name='Section ' + this_section_ids[1] + ' Instructions',
+        pre_track_pause_length=PAUSES['beginning_of_track'])
+    section_instructions_item = make_media_item(
+        name='Section ' + this_section_ids[1] + ' Instructions',
+        filename='JI/Instructions Section ' + this_section_ids[1] + '.wav',
+        track='JI'
+    )
+    pause_after = make_media_item(
+        name='Pause after_instructions',
+        track="Pauses",
+        length=PAUSES['after_instructions'])
+    section_instructions_track['components'].append(section_instructions_item)
+    section_instructions_track['components'].append(pause_after)
+    this_section['components'].append(section_instructions_track)
     for question in section['questions']:
         this_section['components'].append(get_question(question))
     return this_section
