@@ -17,6 +17,7 @@ PAUSES = {
     'after_number': 0.2,
     'after_prompt': 0.2,
     'after_question': 0.2,
+    'after_question_number': 0.2,
     'after_sentence': 0.2,
     'beginning_of_track': 0.2
 }
@@ -98,6 +99,17 @@ def get_question(question):
     this_question = make_track(
         name='Question ' + question['question_number'],
         pre_track_pause_length=PAUSES['beginning_of_track'])
+    this_question_number = make_media_item(
+        name='Number ' + str(question['question_number']).strip().zfill(2),
+        filename='I/Number ' + str(question['question_number']).strip().zfill(2) + '.wav',
+        track='I'
+    )
+    pause_after = make_media_item(
+        name='Pause after_question_number',
+        track="Pauses",
+        length=PAUSES['after_question_number'])
+    this_question['components'].append(this_question_number)
+    this_question['components'].append(pause_after)
     for _ in range(2):
         for line in question['lines']:
             add_line_to_question(this_question, line)
