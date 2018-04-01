@@ -14,6 +14,7 @@ from beaunus_clip_splicer_tools import make_media_item, make_track, make_region
 
 PAUSES = {
     'after_choice': 0.2,
+    'after_instructions': 0.2,
     'after_three_choices': 0.2,
     'after_number': 0.2,
     'after_prompt': 0.2,
@@ -143,6 +144,21 @@ def get_eiken_reaper_object(eiken_object):
     '''
     result = make_region(
         name=eiken_object['title'], path=eiken_object['path'])
+    disc_instructions_track = make_track(
+        name='Disc Instructions',
+        pre_track_pause_length=PAUSES['beginning_of_track'])
+    disc_instructions_item = make_media_item(
+        name='Disc Instructions',
+        filename='JI/Instructions Disc.wav',
+        track='JI'
+    )
+    pause_after = make_media_item(
+        name='Pause after_instructions',
+        track="Pauses",
+        length=PAUSES['after_instructions'])
+    disc_instructions_track['components'].append(disc_instructions_item)
+    disc_instructions_track['components'].append(pause_after)
+    result['components'].append(disc_instructions_track)
     # pylint: disable = too-many-nested-blocks
     for section in eiken_object['sections']:
         result['components'].append(get_section(section))
