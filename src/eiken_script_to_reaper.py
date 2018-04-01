@@ -196,8 +196,24 @@ def get_eiken_reaper_object(eiken_object):
     # pylint: disable = too-many-nested-blocks
     for section in eiken_object['sections']:
         result['components'].append(get_section(section))
-    return result
+    # Add the finished disc instructions
+    disc_instructions_track = make_track(
+        name='Disc Instructions',
+        pre_track_pause_length=PAUSES['beginning_of_track'])
+    disc_instructions_item = make_media_item(
+        name='Disc Instructions',
+        filename='JI/Instructions Disc Finished.wav',
+        track='JI'
+    )
+    pause_after = make_media_item(
+        name='Pause after_instructions',
+        track="Pauses",
+        length=PAUSES['after_instructions'])
+    disc_instructions_track['components'].append(disc_instructions_item)
+    disc_instructions_track['components'].append(pause_after)
+    result['components'].append(disc_instructions_track)
 
+    return result
 
 def main():
     """Reads the command-line arguments and prints the JSON representation of
