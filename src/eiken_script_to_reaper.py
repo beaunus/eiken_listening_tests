@@ -39,6 +39,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def add_line_to_question(question, line):
     """Given a beaunus_clip_splicer question object and a dict that
     represents an Eiken line, adds the line to the question.
@@ -102,7 +103,8 @@ def get_question(question):
         pre_track_pause_length=PAUSES['beginning_of_track'])
     this_question_number = make_media_item(
         name='Number ' + str(question['question_number']).strip().zfill(2),
-        filename='I/Number ' + str(question['question_number']).strip().zfill(2) + '.wav',
+        filename='I/Number ' +
+        str(question['question_number']).strip().zfill(2) + '.wav',
         track='I'
     )
     pause_after = make_media_item(
