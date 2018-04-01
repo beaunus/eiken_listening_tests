@@ -9,6 +9,7 @@ import json
 import sys
 import jsonschema
 import eiken_script_to_json
+# pylint: disable = E0401
 from beaunus_clip_splicer_tools import make_media_item, make_track, make_region
 
 PAUSES = {
