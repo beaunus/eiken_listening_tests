@@ -133,6 +133,23 @@ def get_section(section):
     """
     this_section = make_region(
         name=section['name'])
+    this_section_ids = section['name'].split('.')
+    if this_section_ids[1] == '1':
+        practice_test_instructions_track = make_track(
+            name='Practice Test ' + this_section_ids[0] + ' Instructions',
+            pre_track_pause_length=PAUSES['beginning_of_track'])
+        practice_test_instructions_item = make_media_item(
+            name='Practice Test ' + this_section_ids[0] + ' Instructions',
+            filename='JI/Instructions Practice Test ' + this_section_ids[0] + '.wav',
+            track='JI'
+        )
+        pause_after = make_media_item(
+            name='Pause after_instructions',
+            track="Pauses",
+            length=PAUSES['after_instructions'])
+        practice_test_instructions_track['components'].append(practice_test_instructions_item)
+        practice_test_instructions_track['components'].append(pause_after)
+        this_section['components'].append(practice_test_instructions_track)
     for question in section['questions']:
         this_section['components'].append(get_question(question))
     return this_section
