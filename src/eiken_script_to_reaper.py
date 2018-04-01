@@ -141,14 +141,16 @@ def get_section(section):
             pre_track_pause_length=PAUSES['beginning_of_track'])
         practice_test_instructions_item = make_media_item(
             name='Practice Test ' + this_section_ids[0] + ' Instructions',
-            filename='JI/Instructions Practice Test ' + this_section_ids[0] + '.wav',
+            filename='JI/Instructions Practice Test ' +
+            this_section_ids[0] + '.wav',
             track='JI'
         )
         pause_after = make_media_item(
             name='Pause after_instructions',
             track="Pauses",
             length=PAUSES['after_instructions'])
-        practice_test_instructions_track['components'].append(practice_test_instructions_item)
+        practice_test_instructions_track['components'].append(
+            practice_test_instructions_item)
         practice_test_instructions_track['components'].append(pause_after)
         this_section['components'].append(practice_test_instructions_track)
     # Add the section instructions
@@ -214,6 +216,7 @@ def get_eiken_reaper_object(eiken_object):
     result['components'].append(disc_instructions_track)
 
     return result
+
 
 def main():
     """Reads the command-line arguments and prints the JSON representation of
