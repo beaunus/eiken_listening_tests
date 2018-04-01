@@ -51,7 +51,7 @@ def add_line_to_question(question, line):
             this_component = make_media_item(
                 name='I/' + line['choice_number'],
                 track='I',
-                filename='I/' + line['choice_number'])
+                filename='I/' + line['choice_number'] + '.wav')
             question['components'].append(this_component)
             this_component = make_media_item(
                 name='Pause after_number',
@@ -64,7 +64,7 @@ def add_line_to_question(question, line):
         this_component = make_media_item(
             name='I/Question.',
             track='I',
-            filename='I/Question')
+            filename='I/Question.wav')
         question['components'].append(this_component)
         this_component = make_media_item(
             name='Pause after_choice',
@@ -80,7 +80,7 @@ def add_line_to_question(question, line):
     this_component = make_media_item(
         name=vocalist + '/' + line['text'],
         track=vocalist,
-        filename=vocalist + '/' + line['text'])
+        filename=vocalist + '/' + line['text'] + '.wav')
     question['components'].append(this_component)
 
     pause_name = 'after_' + line_type
