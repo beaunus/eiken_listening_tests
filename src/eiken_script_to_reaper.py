@@ -13,14 +13,14 @@ import eiken_script_to_json
 from beaunus_clip_splicer_tools import make_media_item, make_track, make_region
 
 PAUSES = {
+    'before_choice': 0.2,
     'after_choice': 0.2,
-    'after_instructions': 0.2,
+    'after_instructions': 1,
     'after_three_choices': 0.2,
-    'after_number': 0.2,
-    'after_prompt': 0.2,
     'after_question': 0.2,
-    'after_question_number': 0.2,
-    'after_sentence': 0.2,
+    'after_question_repetition': 6,
+    'after_prompt': 0.2,
+    'after_question_number': 0.8,
     'beginning_of_track': 0.2
 }
 
@@ -53,14 +53,19 @@ def add_line_to_question(question, line):
     if line_type == 'choice':
         if 'choice_number' in line:
             this_component = make_media_item(
+                name='Pause before_choice',
+                track='Pauses',
+                length=PAUSES['before_choice'])
+            question['components'].append(this_component)
+            this_component = make_media_item(
                 name='I/' + line['choice_number'],
                 track='I',
                 filename='I/' + line['choice_number'] + '.wav')
             question['components'].append(this_component)
             this_component = make_media_item(
-                name='Pause after_number',
+                name='Pause after_choice',
                 track='Pauses',
-                length=PAUSES['after_number'])
+                length=PAUSES['after_choice'])
             question['components'].append(this_component)
 
     # If this is a question, add the 'Question' prompt.
@@ -119,9 +124,9 @@ def get_question(question):
             add_line_to_question(this_question, line)
 
         pause_after = make_media_item(
-            name='Pause after_question',
+            name='Pause after_question_repetition',
             track="Pauses",
-            length=PAUSES['after_question'])
+            length=PAUSES['after_question_repetition'])
         this_question['components'].append(pause_after)
     return this_question
 
